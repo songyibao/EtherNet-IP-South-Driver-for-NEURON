@@ -163,10 +163,6 @@ static int driver_config(neu_plugin_t *plugin, const char *config)
     neu_json_elem_t port           = { .name = "port", .t = NEU_JSON_INT };
     neu_json_elem_t timeout        = { .name = "timeout", .t = NEU_JSON_INT };
     neu_json_elem_t host           = { .name = "host", .t = NEU_JSON_STR, .v.val_str = NULL };
-    neu_json_elem_t interval       = { .name = "interval", .t = NEU_JSON_INT };
-    neu_json_elem_t mode           = { .name = "connection_mode", .t = NEU_JSON_INT };
-    neu_json_elem_t max_retries    = { .name = "max_retries", .t = NEU_JSON_INT };
-    neu_json_elem_t retry_interval = { .name = "retry_interval", .t = NEU_JSON_INT };
 
     ret = neu_parse_param((char *) config, &err_param, 3, &port, &host, &timeout);
 
@@ -184,16 +180,11 @@ static int driver_config(neu_plugin_t *plugin, const char *config)
         free(err_param);
         return -1;
     }
-
-    ret = neu_parse_param((char *) config, &err_param, 2, &port, &max_retries, &retry_interval);
     if (ret != 0) {
         free(err_param);
-        max_retries.v.val_int    = 0;
-        retry_interval.v.val_int = 0;
     }
 
-    plog_notice(plugin, "config: host: %s, port: %" PRId64 ", mode: %" PRId64 "", host.v.val_str, port.v.val_int,
-                mode.v.val_int);
+    plog_notice(plugin, "config: host: %s, port: %" PRId64, host.v.val_str, port.v.val_int);
 
     plugin->port = port.v.val_int;
     strcpy(plugin->host, host.v.val_str);
