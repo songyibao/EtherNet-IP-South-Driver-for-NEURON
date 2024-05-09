@@ -9,8 +9,8 @@
 
 cmake_minimum_required(VERSION 3.13)
 set(LIBRARY_OUTPUT_PATH "./")
-file(COPY /home/songyibao/Downloads/neuron-main/plugins/EtherNet-IP/EtherNet-IP.json DESTINATION
-        /home/songyibao/Downloads/neuron-main/build/plugins/schema)
+file(COPY /software/neuron/plugins/ethernet_ip/EtherNet-IP.json DESTINATION
+        /software/neuron/build/plugins/schema)
 project(EtherNet-IP)
 
 
@@ -19,7 +19,7 @@ add_library(plugin-EtherNet-IP SHARED ethernet_ip.c
         tag_hash/tag_hash.c
         tag_handle/tag_handle.c)
 target_include_directories(plugin-EtherNet-IP PRIVATE
-        /home/songyibao/Downloads/neuron-main/include/neuron
+        /software/neuron/include/neuron
 )
 target_link_libraries(plugin-EtherNet-IP PRIVATE /usr/local/lib/neuron/libneuron-base.so plctag)
 
