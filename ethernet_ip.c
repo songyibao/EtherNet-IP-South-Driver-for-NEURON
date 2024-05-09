@@ -127,8 +127,8 @@ static int driver_uninit(neu_plugin_t *plugin)
 
     neu_event_close(plugin->events);
     plugin_free_all_tags(plugin);
+    plc_tag_shutdown();
     plog_notice(plugin, "%s uninit success", plugin->common.name);
-    plugin_free_all_tags(plugin);
     return 0;
 }
 
@@ -168,7 +168,7 @@ static int driver_config(neu_plugin_t *plugin, const char *config)
     neu_json_elem_t max_retries    = { .name = "max_retries", .t = NEU_JSON_INT };
     neu_json_elem_t retry_interval = { .name = "retry_interval", .t = NEU_JSON_INT };
 
-    ret = neu_parse_param((char *) config, &err_param, 5, &port, &host, &mode, &timeout, &interval);
+    ret = neu_parse_param((char *) config, &err_param, 3, &port, &host, &timeout);
 
     if (ret != 0) {
         plog_error(plugin, "config: %s, decode error: %s", config, err_param);
