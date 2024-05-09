@@ -12,9 +12,13 @@ int read_tag(neu_plugin_t *plugin, neu_plugin_group_t *group, neu_datatag_t *tag
     tag_hash_t *tag_hash_item = plugin_find_tag(plugin, tag->address);
     if (tag_hash_item) {
         plc_tag = tag_hash_item->value;
+        // 开始连接plc读取数据的时刻
+        uint64_t read_tms = neu_time_ms();
         /* get the data */
         res = plc_tag_read(plc_tag, plugin->timeout);
         if (res != PLCTAG_STATUS_OK) {
+            // 读取失败, 错误处理
+            NEU_PLUGIN_UPDATE_METRIC(plugin, NEU_METRIC_LAST_RTT_MS, 9999, NULL);
             plog_error(plugin,
                        "ERROR: Unable to read the data! Got error code %d: %s, deleting tag %s from "
                        "hashtable\n",
@@ -25,6 +29,10 @@ int read_tag(neu_plugin_t *plugin, neu_plugin_group_t *group, neu_datatag_t *tag
             plc_tag_destroy(plc_tag);
             res = -1;
             goto exit;
+        } else {
+            // 读取成功, 更新读取延迟
+            uint64_t read_delay = neu_time_ms() - read_tms;
+            NEU_PLUGIN_UPDATE_METRIC(plugin, NEU_METRIC_LAST_RTT_MS, read_delay, NULL);
         }
         /* get the tag size and element size. Do this _AFTER_ reading the tag otherwise we may not know how big the
          * tag is! */
