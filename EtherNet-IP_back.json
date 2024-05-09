@@ -1,88 +1,19 @@
 {
-  "tag_regex": [
-    {
-      "type": 1,
-      "regex": ""
-    },
-    {
-      "type": 2,
-      "regex": ""
-    },
-    {
-      "type": 3,
-      "regex": ""
-    },
-    {
-      "type": 4,
-      "regex": ""
-    },
-    {
-      "type": 5,
-      "regex": ""
-    },
-    {
-      "type": 6,
-      "regex": ""
-    },
-    {
-      "type": 7,
-      "regex": ""
-    },
-    {
-      "type": 8,
-      "regex": ""
-    },
-    {
-      "type": 9,
-      "regex": ""
-    },
-    {
-      "type": 10,
-      "regex": ""
-    },
-    {
-      "type": 11,
-      "regex": ""
-    },
-    {
-      "type": 12,
-      "regex": ""
-    },
-    {
-      "type": 13,
-      "regex": ""
-    },
-    {
-      "type": 16,
-      "regex": ""
-    },
-    {
-      "type": 17,
-      "regex": ""
-    },
-    {
-      "type": 18,
-      "regex": ""
-    }
-  ],
-  "group_interval": 100,
+  "group_interval": 1000,
   "host": {
-    "name": "PLC IP Address",
-    "name_zh": "PLC IP地址",
-    "description": "Target PLC IPv4 address",
-    "description_zh": "目标设备 IPv4 地址",
+    "name": "IP Address",
+    "name_zh": "IP地址",
+    "description": "Local IP in server mode, remote device IP in client mode",
+    "description_zh": "服务端模式中填写本地 IP，客户端模式中填写目标设备 IP",
+    "default": "192.168.1.2",
     "attribute": "required",
-    "type": "string",
-    "valid": {
-      "regex": "/^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$/",
-      "length": 30
-    }
+    "type": "string"
   },
   "port": {
-    "name": "PLC Port",
-    "name_zh": "PLC 端口",
-    "description": "Target PLC port",
-    "description_zh": "目标设备端口号",
+    "name": "Port",
+    "name_zh": "端口号",
+    "description": "Local port in server mode, remote device port in client mode",
+    "description_zh": "PLC EtherNet/IP CIP 端口号",
     "attribute": "required",
     "type": "int",
     "default": 44818,
@@ -91,17 +22,17 @@
       "max": 65535
     }
   },
-  "slot": {
-    "name": "CPU Slot",
-    "name_zh": "CPU槽号",
-    "description": "PLC CPU slot",
-    "description_zh": "PLC CPU 槽号",
+  "timeout": {
+    "name": "Connection Timeout",
+    "name_zh": "连接超时时间",
+    "description": "Connection timeout(ms)",
+    "description_zh": "连接超时时间，单位为毫秒",
     "attribute": "required",
     "type": "int",
-    "default": 0,
+    "default": 2000,
     "valid": {
-      "min": 0,
-      "max": 255
+      "min": 500,
+      "max": 60000
     }
   }
 }
