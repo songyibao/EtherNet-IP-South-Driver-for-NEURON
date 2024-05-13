@@ -65,7 +65,7 @@
       "regex": ""
     }
   ],
-  "group_interval": 100,
+  "group_interval": 1000,
   "host": {
     "name": "PLC IP Address",
     "name_zh": "PLC IP地址",
