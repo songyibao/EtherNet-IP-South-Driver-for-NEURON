@@ -73,7 +73,7 @@
     "description_zh": "目标设备 IPv4 地址",
     "attribute": "required",
     "type": "string",
-    "default": "192.168.1.2",
+    "default": "192.168.5.99",
     "valid": {
       "regex": "/^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$/",
       "length": 30
